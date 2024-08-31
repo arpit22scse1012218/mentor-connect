@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor-Mentee Platform</title>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Link to Socket.IO client library -->
+     
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="overview.html">Overview</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="workshop.html">Workshop</a></li>
+            <li><a href="booking.html">About Us</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+        </ul>
+    </nav>
+   
+
+   
+    
+    <!-- Header Section -->
+    <header>
+        <h1>Welcome to the SkillSync</h1>
+        <p>Your gateway to expert guidance and career success.</p>
+    </header>
+   
+    <!-- Main Content -->
+    <main>
+        <section>
+            <h2>Find Your Mentor</h2>
+            <p>Connect with industry experts to help you navigate your career path.</p>
+        </section>
+
+        <section>
+            <h2>How It Works?</h2>
+            <p>Sign up, choose a mentor, and book your session. It's that simple!</p>
+        </section>
+        
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Mentor-Connect Platform. All rights reserved.</p>
+    </footer>
+
+    <!-- Socket.IO Client-Side Script -->
+    <script>
+        const socket = io();
+
+        // Select DOM elements
+        const messageInput = document.getElementById('messageInput');
+        const sendMessageButton = document.getElementById('sendMessage');
+        const messagesDiv = document.getElementById('messages');
+
+        // Handle sending messages
+        sendMessageButton.addEventListener('click', () => {
+            const message = messageInput.value;
+            if (message) {
+                socket.emit('chat message', message);
+                messageInput.value = '';
+            }
+        });
+
+        // Handle receiving messages
+        socket.on('chat message', (msg) => {
+            const messageElement = document.createElement('div');
+            messageElement.textContent = msg;
+            messagesDiv.appendChild(messageElement);
+        });
+    </script>
+    
+</body>
+</html>
